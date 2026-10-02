@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, Phone, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin, Menu, Plus, X } from "lucide-react";
 import { approach, experience, links, metrics, nav, projects, skills } from "@/components/portfolio/data";
 import { CountUp, CustomCursor, Magnetic, NodeField, Reveal, useReveal } from "@/components/portfolio/effects";
 import { ProjectVisual } from "@/components/portfolio/visuals";
@@ -334,7 +334,6 @@ function Contact() {
         </Reveal>
         <Reveal delay={320} className="mt-14 flex flex-col items-center justify-center gap-4 font-mono text-sm text-muted-foreground sm:flex-row sm:gap-8">
           <a href={`mailto:${links.email}`} className="break-all hover:text-foreground">{links.email}</a>
-          <a href={`tel:${links.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-2 hover:text-foreground"><Phone className="h-3.5 w-3.5" />{links.phone}</a>
           <span className="inline-flex items-center gap-2"><MapPin className="h-3.5 w-3.5" />{links.location}</span>
         </Reveal>
       </div>

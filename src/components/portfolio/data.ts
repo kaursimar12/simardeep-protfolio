@@ -1,6 +1,5 @@
 export const links = {
   email: "simararora1002@gmail.com",
-  phone: "+91 7002961675",
   linkedin: "https://linkedin.com/in/simardeep-k",
   github: "https://github.com/simardeep-wartin",
   location: "Gurugram, Haryana, India",
