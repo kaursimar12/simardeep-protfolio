@@ -23,7 +23,7 @@ function Graph() {
       <line x1={20} y1={25} x2={32} y2={48} className="stroke-border-strong" strokeWidth={0.3} />
       <line x1={80} y1={22} x2={68} y2={52} className="stroke-border-strong" strokeWidth={0.3} />
       {nodes.map(([x, y], i) => <circle key={i} cx={x} cy={y} r={i === 0 ? 4 : 2} className={i === 0 ? "fill-primary" : "fill-foreground/80"} />)}
-      {[[20, 25], [80, 22], [85, 75]].map(([x, y], i) => <rect key={i} x={x - 5} y={y + 4} width={10} height={6} rx={1} className="fill-none stroke-muted-foreground" strokeWidth={0.3} />)}
+      {([[20, 25], [80, 22], [85, 75]] as [number, number][]).map(([x, y], i) => <rect key={i} x={x - 5} y={y + 4} width={10} height={6} rx={1} className="fill-none stroke-muted-foreground" strokeWidth={0.3} />)}
     </svg>
   );
 }
