@@ -141,8 +141,8 @@ function Hero() {
       <div className="relative border-t border-border bg-background/60 backdrop-blur">
         <dl className="mx-auto grid max-w-7xl grid-cols-2 px-5 sm:grid-cols-3 md:px-8 lg:grid-cols-5">
           {metrics.map((m, i) => (
-            <Reveal key={m.label} delay={i * 80} className={`py-6 md:py-8 ${i ? "lg:border-l lg:pl-6" : ""} border-border`}>
-              <dt className="order-2 mt-1 text-xs text-muted-foreground md:text-sm">{m.label}</dt>
+            <Reveal key={m.label} delay={i * 80} className={`flex flex-col-reverse py-6 md:py-8 ${i ? "lg:border-l lg:pl-6" : ""} border-border`}>
+              <dt className="mt-1 text-xs text-muted-foreground md:text-sm">{m.label}</dt>
               <dd className="font-display text-3xl font-bold md:text-4xl"><CountUp value={m.value} prefix={m.prefix} suffix={m.suffix} /></dd>
             </Reveal>
           ))}
