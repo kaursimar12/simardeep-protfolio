@@ -22,7 +22,7 @@ export function CountUp({ value, prefix = "", suffix = "" }: { value: number; pr
   useEffect(() => {
     const el = ref.current; if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const io = new IntersectionObserver(([e]) => {
+    const io = new IntersectionObserver(([e]) => { if (!e) return;
       if (!e.isIntersecting) return;
       io.disconnect();
       if (reduce) return setN(value);
@@ -52,7 +52,7 @@ export function NodeField({ density = 60, className = "" }: { density?: number; 
     resize();
     const onMove = (e: PointerEvent) => { const r = c.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; };
     window.addEventListener("resize", resize); window.addEventListener("pointermove", onMove);
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); } });
+    const io = new IntersectionObserver(([e]) => { visible = !!e?.isIntersecting; if (visible && !reduce) { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); } });
     io.observe(c);
     const css = getComputedStyle(document.documentElement);
     const primary = css.getPropertyValue("--primary").trim() || "oklch(0.66 0.2 278)";
@@ -65,9 +65,9 @@ export function NodeField({ density = 60, className = "" }: { density?: number; 
         if (p.x < 0 || p.x > 1) p.vx *= -1; if (p.y < 0 || p.y > 1) p.vy *= -1;
       }
       for (let i = 0; i < pts.length; i++) {
-        const a = pts[i]; const ax = a.x * w, ay = a.y * h;
+        const a = pts[i]!; const ax = a.x * w, ay = a.y * h;
         for (let j = i + 1; j < pts.length; j++) {
-          const b = pts[j]; const dx = ax - b.x * w, dy = ay - b.y * h; const d = Math.hypot(dx, dy);
+          const b = pts[j]!; const dx = ax - b.x * w, dy = ay - b.y * h; const d = Math.hypot(dx, dy);
           if (d < max) { ctx.globalAlpha = (1 - d / max) * 0.35; ctx.strokeStyle = primary; ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(b.x * w, b.y * h); ctx.stroke(); }
         }
         const md = Math.hypot(ax - mouse.x, ay - mouse.y);

@@ -16,7 +16,7 @@ export function ProjectVisual({ type }: { type: Visual }) {
 }
 
 function Graph() {
-  const nodes = [[50, 50], [20, 25], [80, 22], [15, 72], [85, 75], [50, 15], [50, 88], [32, 48], [68, 52]];
+  const nodes: [number, number][] = [[50, 50], [20, 25], [80, 22], [15, 72], [85, 75], [50, 15], [50, 88], [32, 48], [68, 52]];
   return (
     <svg viewBox="0 0 100 100" className="h-4/5 w-4/5 transition-transform duration-700 group-hover:rotate-6">
       {nodes.slice(1).map(([x, y], i) => <line key={i} x1={50} y1={50} x2={x} y2={y} className="stroke-primary/50" strokeWidth={0.4} />)}
