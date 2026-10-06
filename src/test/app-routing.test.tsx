@@ -29,6 +29,12 @@ describe("App routing", () => {
     await waitFor(() => expect(container.firstChild).not.toBeNull());
   });
 
+  it("renders a project case study route", async () => {
+    const { container } = renderAt("/projects/ai-parenting-assistant");
+
+    await waitFor(() => expect(container.firstChild).not.toBeNull());
+  });
+
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
