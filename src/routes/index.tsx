@@ -18,6 +18,7 @@ import {
   skills,
 } from "@/components/portfolio/data";
 import {
+  EmailLink,
   Footer,
   IconTile,
   ResumeLink,
@@ -132,9 +133,9 @@ function Hero() {
             View my work <ArrowRight className="h-4 w-4" />
           </a>
           <ResumeLink className={btnOutline} />
-          <a href={`mailto:${links.email}`} className={btnOutline}>
+          <EmailLink className={btnOutline}>
             <Mail className="h-4 w-4" /> Get in touch
-          </a>
+          </EmailLink>
           <a
             href={links.github}
             target="_blank"
@@ -335,9 +336,9 @@ function Contact() {
             best way to reach me.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href={`mailto:${links.email}`} className={btnPrimary}>
+            <EmailLink className={btnPrimary}>
               <Mail className="h-4 w-4" /> Email me
-            </a>
+            </EmailLink>
             <ResumeLink className={btnOutline} />
             <a href={links.linkedin} target="_blank" rel="noreferrer" className={btnOutline}>
               <Linkedin className="h-4 w-4" /> LinkedIn
@@ -348,12 +349,9 @@ function Contact() {
               <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground" />
             </a>
           </div>
-          <a
-            href={`mailto:${links.email}`}
-            className="mt-6 inline-block break-all text-sm text-muted-foreground hover:text-foreground"
-          >
+          <EmailLink className="mt-6 inline-block break-all text-sm text-muted-foreground hover:text-foreground">
             {links.email}
-          </a>
+          </EmailLink>
         </div>
       </div>
     </section>

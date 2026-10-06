@@ -1,6 +1,13 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { FileText, Menu, Moon, Sun, X, type LucideIcon } from "lucide-react";
+import { Check, Copy, FileText, Mail, Menu, Moon, Sun, X, type LucideIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { links, nav } from "./data";
 import { useActiveSection } from "./motion";
 
@@ -78,11 +85,63 @@ export function ResumeLink({ className }: { className: string }) {
   );
 }
 
+/**
+ * Email link that opens a chooser instead of a bare mailto:. A mailto: does nothing on machines
+ * with no default mail app (common on Windows), so visitors can pick webmail or copy the address.
+ */
+export function EmailLink({ className, children }: { className: string; children: ReactNode }) {
+  const [copied, setCopied] = useState(false);
+  const to = encodeURIComponent(links.email);
+  const options = [
+    { label: "Gmail", href: `https://mail.google.com/mail/?view=cm&fs=1&to=${to}` },
+    { label: "Outlook", href: `https://outlook.live.com/mail/0/deeplink/compose?to=${to}` },
+    { label: "Default mail app", href: `mailto:${links.email}` },
+  ];
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(links.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // Clipboard can be blocked (insecure context, permissions); the other options still work.
+    }
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className={className}>{children}</DropdownMenuTrigger>
+      <DropdownMenuContent align="center" className="min-w-52">
+        {options.map((o) => (
+          <DropdownMenuItem key={o.label} asChild className="cursor-pointer">
+            <a
+              href={o.href}
+              {...(o.href.startsWith("http") && { target: "_blank", rel: "noreferrer" })}
+            >
+              <Mail /> {o.label}
+            </a>
+          </DropdownMenuItem>
+        ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onSelect={(e) => {
+            e.preventDefault();
+            void copy();
+          }}
+        >
+          {copied ? <Check /> : <Copy />} {copied ? "Copied!" : "Copy email address"}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 /** localStorage key for the visitor's theme choice; also read by the pre-paint script in __root. */
 export const THEME_KEY = "theme";
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   // The <head> script may already have applied a saved choice; sync with it after hydration.
   useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
 
@@ -262,9 +321,7 @@ export function Footer() {
           >
             LinkedIn
           </a>
-          <a href={`mailto:${links.email}`} className="hover:text-foreground">
-            Email
-          </a>
+          <EmailLink className="hover:text-foreground">Email</EmailLink>
         </div>
       </div>
     </footer>

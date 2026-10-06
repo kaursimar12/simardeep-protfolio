@@ -6,9 +6,9 @@ import {
   getCaseStudy,
   type CaseStudySection,
 } from "@/components/portfolio/case-studies";
-import { links } from "@/components/portfolio/data";
 import { FlowDiagram } from "@/components/portfolio/flow-diagram";
 import {
+  EmailLink,
   Footer,
   SiteHeader,
   StatGrid,
@@ -165,9 +165,9 @@ function CaseStudyPage() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </span>
           </Link>
-          <a href={`mailto:${links.email}`} className={btnPrimary}>
+          <EmailLink className={btnPrimary}>
             <Mail className="h-4 w-4" /> Get in touch
-          </a>
+          </EmailLink>
         </nav>
       </main>
       <Footer />

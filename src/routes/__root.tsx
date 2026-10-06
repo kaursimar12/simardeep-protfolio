@@ -97,13 +97,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-// Runs before first paint so a saved dark choice doesn't flash light on load.
-const themeScript = `try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
+// Dark is the default. Runs before first paint so a saved light choice doesn't flash dark on load.
+const themeScript = `try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.classList.remove("dark")}catch(e){}`;
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    // The theme script may add a class before hydration.
-    <html lang="en" suppressHydrationWarning>
+    // The theme script may remove the class before hydration.
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <HeadContent />
